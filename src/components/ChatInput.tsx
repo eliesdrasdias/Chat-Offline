@@ -42,10 +42,11 @@ export default function ChatInput({ className = "", onSend }: ChatInputProps) {
     el.style.height = `${Math.min(el.scrollHeight, 6 * 24)}px`;
   };
 
-  const cardBorder =
-    sender === "robot"
-      ? "border-2 border-purple-500"
-      : "border border-stone-300";
+  const isUser = sender === "user";
+
+  const cardBorder = isUser
+    ? "border border-stone-300"
+    : "border-2 border-purple-500";
 
   return (
     <div
