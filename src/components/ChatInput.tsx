@@ -29,7 +29,7 @@ export default function ChatInput({ className = "", onSend }: ChatInputProps) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key.toLowerCase() === "enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -42,10 +42,15 @@ export default function ChatInput({ className = "", onSend }: ChatInputProps) {
     el.style.height = `${Math.min(el.scrollHeight, 6 * 24)}px`;
   };
 
-  const cardBorder = sender === "robot" ? "border-2 border-purple-500" : "border border-stone-300";
+  const cardBorder =
+    sender === "robot"
+      ? "border-2 border-purple-500"
+      : "border border-stone-300";
 
   return (
-    <div className={`p-4 bg-white rounded-xl shadow-lg ${cardBorder} ${className} transition-colors`}>
+    <div
+      className={`p-4 bg-white rounded-xl shadow-lg ${cardBorder} ${className} transition-colors`}
+    >
       <div className="flex items-end gap-2">
         <SenderToggle sender={sender} onToggle={setSender} />
 

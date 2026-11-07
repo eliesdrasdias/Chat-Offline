@@ -19,7 +19,7 @@ export default function MessageList({ messages }: MessageListProps) {
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 pb-20">
+    <div className="flex-1 overflow-y-auto p-4 pb-20 scrollbar-thin">
       <div className="flex flex-col gap-2">
         {messages.length === 0 ? (
           <p className="text-center text-stone-500 mt-10">
