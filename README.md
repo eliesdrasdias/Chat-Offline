@@ -51,6 +51,10 @@ Demonstrar domínio de **React moderno** (hooks, componentização, TypeScript e
 ## 📁 Estrutura de Pastas
 
 ```
+.github/
+└── workflows/
+    └── deploy.yml           # Build e deploy automático no GitHub Pages
+
 src/
 ├── types/
 │   ├── conversation.ts     # Conversation
