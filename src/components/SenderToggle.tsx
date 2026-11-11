@@ -4,9 +4,10 @@ import type { Sender } from "../types/message";
 type SenderToggleProps = {
   sender: Sender;
   onToggle: (sender: Sender) => void;
+  disabled?: boolean;
 };
 
-export default function SenderToggle({ sender, onToggle }: SenderToggleProps) {
+export default function SenderToggle({ sender, onToggle, disabled = false }: SenderToggleProps) {
   const isUser = sender === "user";
 
   const icon = isUser ? "👤" : "🤖";
@@ -19,11 +20,17 @@ export default function SenderToggle({ sender, onToggle }: SenderToggleProps) {
     : "border-purple-500 bg-purple-50 text-purple-700";
 
   const handleClick = () => {
+    if (disabled) return;
     onToggle(isUser ? "robot" : "user");
   };
 
   return (
-    <button type="button" className={`${baseClasses} ${stateClasses}`} onClick={handleClick}>
+    <button
+      type="button"
+      className={`${baseClasses} ${stateClasses} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+      onClick={handleClick}
+      disabled={disabled}
+    >
       <span>{icon}</span>
     </button>
   );

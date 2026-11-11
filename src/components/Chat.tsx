@@ -1,26 +1,30 @@
 // src/components/Chat.tsx
-import { useState } from "react";
-import type { Message, Sender } from "../types/message";
+import { useChatStore } from "../stores/chatStore";
 import MessageList from "./MessageList";
 import ChatInput from "./ChatInput";
+import Sidebar from "./Sidebar";
+import MobileMenuButton from "./MobileMenuButton";
 
 export default function Chat() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const { conversations, activeConversationId } = useChatStore();
 
-  const handleSend = (text: string, sender: Sender) => {
-    const newMessage: Message = {
-      id: crypto.randomUUID(),
-      text,
-      sender,
-    };
-    setMessages((prev) => [...prev, newMessage]);
-  };
+  const activeConversation = conversations.find(
+    (conv) => conv.id === activeConversationId
+  );
+  const messages = activeConversation?.messages ?? [];
+  const isDisabled = activeConversationId === null;
 
   return (
-    <div className="min-h-screen bg-stone-200 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full h-[calc(100dvh-2rem)] bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
-        <MessageList messages={messages} />
-        <ChatInput className="sticky bottom-0" onSend={handleSend} />
+    <div className="min-h-screen bg-stone-200 flex">
+      <Sidebar />
+      <div className="flex-1 flex flex-col min-w-0">
+        <MobileMenuButton />
+        <main className="flex-1 flex items-center justify-center p-4 lg:p-8">
+          <div className="max-w-2xl w-full h-[calc(100dvh-2rem)] bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+            <MessageList messages={messages} />
+            <ChatInput className="sticky bottom-0" disabled={isDisabled} />
+          </div>
+        </main>
       </div>
     </div>
   );

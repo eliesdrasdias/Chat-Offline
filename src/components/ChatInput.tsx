@@ -1,23 +1,23 @@
 // src/components/ChatInput.tsx
 import { useRef, useState } from "react";
-import type { Sender } from "../types/message";
 import SenderToggle from "./SenderToggle";
+import { useChatStore } from "../stores/chatStore";
 
 type ChatInputProps = {
   className?: string;
-  onSend: (text: string, sender: Sender) => void;
+  disabled?: boolean;
 };
 
-export default function ChatInput({ className = "", onSend }: ChatInputProps) {
-  const [sender, setSender] = useState<Sender>("user");
+export default function ChatInput({ className = "", disabled = false }: ChatInputProps) {
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { sender, toggleSender, addMessage } = useChatStore();
 
-  const isSendDisabled = text.trim() === "";
+  const isSendDisabled = text.trim() === "" || disabled;
 
   const handleSend = () => {
     if (isSendDisabled) return;
-    onSend(text.trim(), sender);
+    addMessage(text.trim());
     setText("");
     resetTextareaHeight();
   };
@@ -50,19 +50,22 @@ export default function ChatInput({ className = "", onSend }: ChatInputProps) {
 
   return (
     <div
-      className={`p-4 bg-white rounded-xl shadow-lg ${cardBorder} ${className} transition-colors`}
+      className={`p-4 bg-white rounded-xl shadow-lg ${cardBorder} ${className} transition-colors ${
+        disabled ? "opacity-50 pointer-events-none" : ""
+      }`}
     >
       <div className="flex items-end gap-2">
-        <SenderToggle sender={sender} onToggle={setSender} />
+        <SenderToggle sender={sender} onToggle={toggleSender} disabled={disabled} />
 
         <textarea
           ref={textareaRef}
           value={text}
           onChange={handleInput}
           onKeyDown={handleKeyDown}
-          placeholder="Digite uma mensagem..."
+          placeholder={disabled ? "Selecione ou crie uma conversa" : "Digite uma mensagem..."}
           rows={1}
-          className="flex-1 resize-none border-0 bg-stone-100 rounded-lg px-3 py-2 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-purple-400 max-h-24"
+          disabled={disabled}
+          className="flex-1 resize-none border-0 bg-stone-100 rounded-lg px-3 py-2 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-purple-400 max-h-24 disabled:cursor-not-allowed"
         />
 
         <button
