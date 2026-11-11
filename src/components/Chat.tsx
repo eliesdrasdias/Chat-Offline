@@ -19,8 +19,8 @@ export default function Chat() {
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0">
         <MobileMenuButton />
-        <main className="flex-1 flex items-center justify-center p-4 lg:p-8">
-          <div className="max-w-2xl w-full h-[calc(100dvh-2rem)] bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+        <main className="flex-1 flex p-0 lg:px-8 lg:justify-center">
+          <div className="flex-1 min-w-0 flex flex-col h-full bg-white rounded-xl shadow-lg overflow-hidden w-full lg:max-w-2xl">
             {activeConversation ? (
               <>
                 <MessageList messages={messages} />

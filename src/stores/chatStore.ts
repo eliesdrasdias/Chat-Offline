@@ -1,5 +1,6 @@
 // src/stores/chatStore.ts
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import type { Conversation } from "../types/conversation";
 import type { Message, Sender } from "../types/message";
 
@@ -14,7 +15,9 @@ type ChatState = {
   toggleSender: () => void;
 };
 
-export const useChatStore = create<ChatState>((set, get) => ({
+export const useChatStore = create(
+  persist<ChatState, [], [], { conversations: Conversation[] }>(
+    (set, get) => ({
   conversations: [],
   activeConversationId: null,
   sender: "user",
@@ -70,4 +73,10 @@ export const useChatStore = create<ChatState>((set, get) => ({
       sender: state.sender === "user" ? "robot" : "user",
     }));
   },
-}));
+}),
+    {
+      name: "chat-storage",
+      partialize: (state) => ({ conversations: state.conversations }),
+    }
+  )
+);

@@ -7,12 +7,12 @@ export default function Sidebar() {
     useChatStore();
 
   return (
-    <div className="w-64 h-dvh bg-stone-100 border-r border-stone-200 flex flex-col">
+    <div className="hidden lg:flex w-64 h-dvh bg-stone-100 border-r border-stone-200 flex-col">
       <div className="p-4 border-b border-stone-200">
         <button
           type="button"
           onClick={createConversation}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors text-sm font-medium"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors text-sm font-medium shadow-sm"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

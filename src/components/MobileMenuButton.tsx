@@ -41,16 +41,17 @@ export default function MobileMenuButton() {
   return (
     <>
       <div
-        className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden transition-opacity duration-300"
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
-      <aside className="fixed top-0 left-0 z-50 w-64 h-dvh bg-stone-100 border-r border-stone-200 flex flex-col lg:hidden">
-        <div className="p-4 border-b border-stone-200">
+      <aside className="fixed inset-0 z-50 bg-stone-100 lg:hidden flex shadow-xl transition-all duration-300">
+        <div className="w-64 h-dvh border-r border-stone-200 flex flex-col">
+          <div className="p-4 border-b border-stone-200">
           <button
             type="button"
             onClick={handleCreateConversation}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors text-sm font-medium"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors text-sm font-medium shadow-sm"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +77,7 @@ export default function MobileMenuButton() {
                 key={conv.id}
                 className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors ${
                   conv.id === activeConversationId
-                    ? "bg-stone-200 font-medium"
+                    ? "bg-stone-200 font-medium border-l-2 border-purple-500"
                     : "hover:bg-stone-100"
                 }`}
                 onClick={() => handleSelectConversation(conv.id)}
@@ -108,6 +109,8 @@ export default function MobileMenuButton() {
             ))
           )}
         </div>
+      </div>
+      <div className="flex-1" onClick={() => setIsOpen(false)} />
       </aside>
     </>
   );

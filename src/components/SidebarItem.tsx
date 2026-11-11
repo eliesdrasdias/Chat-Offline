@@ -15,7 +15,7 @@ export default function SidebarItem({ conversationId, isActive }: SidebarItemPro
     <div
       className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors ${
         isActive
-          ? "bg-stone-200 font-medium"
+          ? "bg-stone-200 font-medium border-l-2 border-purple-500"
           : "hover:bg-stone-100"
       }`}
       onClick={() => selectConversation(conversationId)}
