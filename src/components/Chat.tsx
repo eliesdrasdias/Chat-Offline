@@ -21,8 +21,18 @@ export default function Chat() {
         <MobileMenuButton />
         <main className="flex-1 flex items-center justify-center p-4 lg:p-8">
           <div className="max-w-2xl w-full h-[calc(100dvh-2rem)] bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
-            <MessageList messages={messages} />
-            <ChatInput className="sticky bottom-0" disabled={isDisabled} />
+            {activeConversation ? (
+              <>
+                <MessageList messages={messages} />
+                <ChatInput className="sticky bottom-0" disabled={isDisabled} />
+              </>
+            ) : (
+              <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
+                <p className="text-stone-500 text-lg">
+                  Crie ou selecione uma conversa
+                </p>
+              </div>
+            )}
           </div>
         </main>
       </div>
