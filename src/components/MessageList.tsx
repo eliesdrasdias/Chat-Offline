@@ -20,13 +20,11 @@ export default function MessageList({ messages }: MessageListProps) {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 pb-12 scrollbar-thin">
-      <div className="flex flex-col gap-2">
+      <div className={`flex flex-col gap-2 ${messages.length === 0 ? "h-full items-center justify-center" : ""}`}>
         {messages.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-center text-stone-500 text-lg">
-              Nenhuma mensagem ainda. Envie a primeira!
-            </p>
-          </div>
+          <p className="text-center text-stone-500 text-lg">
+            Nenhuma mensagem ainda. Envie a primeira!
+          </p>
         ) : (
           messages.map((message) => (
             <MessageBubble key={message.id} message={message} />
